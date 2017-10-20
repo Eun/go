@@ -814,6 +814,13 @@ func (t *T) Run(name string, f func(t *T)) bool {
 	return !t.failed
 }
 
+// MustRun runs f as a subtest of t called name. It fails whether f fails.
+func (t *T) MustRun(name string, f func(t *T)) {
+	if t.Run(name, f) == false {
+		t.FailNow()
+	}
+}
+
 // testContext holds all fields that are common to all tests. This includes
 // synchronization primitives to run at most *parallel tests.
 type testContext struct {
